@@ -16,8 +16,8 @@ import type { ErrorType } from "../../index.d"
     const { statusCode, body } = await request
       .get(url)
       .timeout({
-        response: 3 * 1000,
-        deadline: 5 * 1000,
+        response: 3 * 2000,
+        deadline: 5 * 2000,
       });
     return {
       statusCode: statusCode,
