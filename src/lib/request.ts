@@ -1,9 +1,8 @@
 require("babel-polyfill");
 
-import request from "superagent";
-
+import * as superagent from "superagent";
 import NpmException from "./npmException";
-import type { ErrorType } from "../../index.d"
+import type { ErrorType } from "../../index.d";
 
 /**
  * Body module that calls the API
@@ -11,20 +10,20 @@ import type { ErrorType } from "../../index.d"
  * @param {String} url: request URL with params
  * @returns {Object} object from npm API status code and response body
  */
- const load = async (url: string) => {
+const load = async (url: string) => {
   try {
-    const { statusCode, body } = await request
+    const { status, body } = await superagent
       .get(url)
       .timeout({
         response: 3 * 2000,
         deadline: 5 * 2000,
       });
     return {
-      statusCode: statusCode,
-      body: body,
+      statusCode: status,
+      body,
     };
   } catch (err) {
-    const obj: ErrorType = new NpmException(err)
+    const obj: ErrorType = new NpmException(err);
     throw obj;
   }
 };
